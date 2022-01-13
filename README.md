@@ -1,5 +1,7 @@
 # MK32 - Simple BLE keyboard for ESP32
 
+fork from: https://github.com/Galzai/MK32
+
 dungphan90's fork:
 - Updated to ESP-IDF v4.4.
 - Migrated to CMake build system.
