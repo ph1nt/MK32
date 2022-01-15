@@ -16,15 +16,15 @@ extern "C" {
  *Please make sure you understand what is a voltage divider before modifying
  * */
 
-#define R_1 47  //Pull-up resistor [kOhm]
-#define R_2 22 //Pull-down resistor [kOhm]
+#define R_1 100  //Pull-up resistor [kOhm]
+#define R_2 100 //Pull-down resistor [kOhm]
 
 /*These are approximate values,
  * battery voltage isn't completely linear, it would be better to use a table for specific battery
  * For now this is an ok approximation.
  */
 #define Vin_max 4200 //Max Battery voltage [mV]
-#define Vin_min  3400 //Battery discharge Voltage[mV]
+#define Vin_min 3400 //Battery discharge Voltage[mV]
 
 #define Vout_max Vin_max*R_2/(R_1+R_2) //Max voltage on analog pin [mV]
 #define Vout_min Vin_min*R_2/(R_1+R_2) //Min voltage on analog pin [mV]
