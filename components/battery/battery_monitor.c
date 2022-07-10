@@ -35,10 +35,10 @@
 #include "battery_monitor.h"
 
 #define DEFAULT_VREF    1100        //Use adc2_vref_to_gpio() to obtain a better estimate
-#define NO_OF_SAMPLES   500          //Multisampling
+#define NO_OF_SAMPLES   50          //Multisampling
 
 static const adc_channel_t channel = BATT_PIN;
-static const adc_atten_t atten = ADC_ATTEN_DB_2_5;
+static const adc_atten_t atten = ADC_ATTEN_DB_11;
 static const adc_unit_t unit = ADC_UNIT_1;
 
 uint32_t voltage = 0;
@@ -58,9 +58,10 @@ uint32_t get_battery_level(void) {
 
 	//Convert adc_reading to voltage in mV
 	voltage = esp_adc_cal_raw_to_voltage(adc_reading, adc_chars);
-	uint32_t battery_percent = ((voltage - Vout_min) * 100
-			/ (Vout_max - Vout_min));
-//    printf("Raw: %d\tVoltage: %dmV\tPercent: %d\n", adc_reading, voltage, battery_percent);
+	int32_t battery_percent = (voltage - Vout_min) * 100 / (Vout_max - Vout_min);
+	battery_percent = (battery_percent < 100) ? battery_percent : 100;
+	battery_percent = (battery_percent < 0) ? 0 : battery_percent;
+    //ESP_LOGI("Batt", "Raw: %d\tVoltage: %dmV\tPercent: %d", adc_reading, voltage*2, battery_percent);
 	return battery_percent;
 
 }

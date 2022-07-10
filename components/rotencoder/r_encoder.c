@@ -150,7 +150,7 @@ void r_encoder_setup(void){
 	gpio_set_direction(ENCODER_A_PIN,GPIO_MODE_INPUT);
 	gpio_set_pull_mode(ENCODER_A_PIN,GPIO_PULLUP_ONLY);
 	gpio_set_direction(ENCODER_B_PIN,GPIO_MODE_INPUT);
-	gpio_set_pull_mode(ENCODER_B_PIN,GPIO_FLOATING);
+	gpio_set_pull_mode(ENCODER_B_PIN,GPIO_PULLUP_ONLY);
 
 	pcnt_counter_pause(PCNT_UNIT_0); // Initial PCNT init
 	pcnt_counter_clear(PCNT_UNIT_0);

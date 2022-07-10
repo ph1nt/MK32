@@ -30,7 +30,6 @@ char default_layout_names[LAYERS][MAX_LAYOUT_NAME_LENGTH] = { "QWERTY", "NUM",
 /* select a keycode for your macro
  * important - first macro must be initialized as MACRO_BASE_VAL
  * */
-
 #define MACROS_NUM 2
 enum custom_macros {
 	KC_CTRL_ALT_DELETE = MACRO_BASE_VAL, KC_ALT_F4,
@@ -48,7 +47,6 @@ uint16_t macros[MACROS_NUM][MACRO_LEN] = {
 /*Encoder keys for each layer by order, and for each pad
  * First variable states what usage the encoder has
  */
-
 uint16_t default_encoder_map[LAYERS][ENCODER_SIZE] = {
 		// |VOL + | VOL - | MUTE |
 		{ MEDIA_ENCODER, KC_AUDIO_VOL_UP, KC_AUDIO_VOL_DOWN, KC_AUDIO_MUTE },
@@ -68,64 +66,48 @@ uint16_t default_slave_encoder_map[LAYERS][ENCODER_SIZE] = {
 // Fillers to make layering more clear
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
+// TODO mod tap keys
+#define LSFT(key) (key)
+#define MT(key1, key2) (key2)
+#define LT(key1, key2) (key2)
+
+#define KC_V_UP KC_AUDIO_VOL_UP
+#define KC_V_DN KC_AUDIO_VOL_DOWN
+#define KC_SLEP KC_SYSTEM_SLEEP
+#define KC_PLUS LSFT(KC_MINUS)
+#define KC_UNDS LSFT(KC_EQUAL)
+#define KC_PIPE LSFT(KC_BSLS)
+#define KC_EXLM LSFT(KC_1)
+#define KC_AT LSFT(KC_2)
+#define KC_HASH LSFT(KC_3)
+#define KC_DLR LSFT(KC_4)
+#define KC_PERC LSFT(KC_5)
+#define KC_CIRC LSFT(KC_6)
+#define KC_AMPR LSFT(KC_7)
+#define KC_ASTR LSFT(KC_8)
+#define KC_LPRN LSFT(KC_9)
+#define KC_RPRN LSFT(KC_0)
+#define KC_TILD KC_NONUS_HASH
+#define LOW_TAB LT(LOWER, KC_TAB)
+#define RSE_BSP LT(RAISE, KC_BSPC)
+#define ENT_SFT MT(MOD_LSFT, KC_ENTER)
+#define ESC_CMD MT(MOD_LGUI, KC_ESC)
 
 //NOTE: For this keymap due to wiring constraints the the two last rows on the left are wired unconventionally
 // Each keymap is represented by an array, with an array that points to all the keymaps  by order
 	 uint16_t _QWERTY[MATRIX_ROWS][KEYMAP_COLS]={
-
-			/* Qwerty
-			 * ,-----------------------------------------.    .-----------------------------------------.
-			 * |  ~   |   1  |   2  |   3   |   4  |   5  |   |    6  |   7  |   8  |   9  |   0  |   -  |
-			 * |------+------+------+-------+------+------|   |-------+------+------+------+------+------|
-			 * | Esc  |   Q  |   W  |   E   |   R  |   T  |   |    Y  |   U  |   I  |   O  |   P  |  =   |
-			 * |------+------+------+-------+------+------|   |-------+------+------+------+------+------|
-			 * | Tab  |   A  |   S  |   D   |   F  |   G  |   |    H  |   J  |   K  |   L  |   ;  |  '   |
-			 * |------+------+------+-------+------+------|   |-------+------+------+------+------+------|
-			 * | Shift|   Z  |   X  |   C   |   V  |   B  |   |    N  |   M  |   ,  |   .  |   /  |  up  |
-			 * |------+------+------+-------+------+------|   |-------+------+------+------+------+------|
-			 * | Ctrl | GUI  |  Alt | Space |Space |NUM_H |   |  Del  |Bspc  |Enter | Left | Right  |Down  |
-			 * `------------------------------------------'    ------------------------------------------'
-			 *                            |default |RAISE|    |lower|NUM |
-			 *                              --------------    ---------------
-			 */
-			  {KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINUS },
-			  {KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_EQUAL},
-			  {KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT },
-			  {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_UP } ,
-			  {KC_LCTRL,KC_LGUI, KC_LALT, KC_SPC, KC_SPC,  NUM_H,  KC_DEL,  NUM,   LOWER, KC_BSPC, KC_ENT,  KC_LEFT },
-			  {DEFAULT,RAISE, KC_NONE, KC_NONE, KC_NONE,   KC_NONE,  KC_RIGHT,  KC_DOWN,   KC_NONE, KC_NONE, KC_NONE,   KC_NONE }
-
+			  {KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P     },
+			  {KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN  },
+			  {KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH  },
+			  {NUM,     KC_LCTRL,KC_LALT, LOWER,   KC_NO,   KC_SPACE,KC_NO,   RAISE,   KC_ENTER,KC_LGUI  }
 	};
-
 	 uint16_t _NUM[MATRIX_ROWS][KEYMAP_COLS]={
-
-
-			/* Nums
-			 * ,-----------------------------------------.    .-----------------------------------------.
-			 * | F1   |   F2 |   F3 |   F4  |  F5  |  F6  |   |   F7  |  F8  |  F9  |  F10 | F11  |  F12 |
-			 * |------+------+------+-------+------+------|   |-------+------+------+------+------+------|
-			 * | Esc  |   Q  |   W  |   E   |   R  |   T  |   |    Y  |   U  |   I  |   [ |   ]   |  \   |
-			 * |------+------+------+-------+------+------|   |-------+------+------+------+------+------|
-			 * | Tab  |   A  |   S  |   D   |   F  |   G  |   |    H  |   J  |   K  |   L  |   ;  |  '   |
-			 * |------+------+------+-------+------+------|   |-------+------+------+------+------+------|
-			 * | Shift|   Z  |   X  |   C   |   V  |   B  |   |    N  |   M  |   ,  |   .  |   /  |  up  |
-			 * |------+------+------+-------+------+------|   |-------+------+------+------+------+------|
-			 * | Ctrl | GUI  |  Alt | Space |Space |NUM_H |   |  Del  |Bspc  |Enter | Left | Right  |Down  |
-			 * `------------------------------------------'    ------------------------------------------'
-			 *                            |default |RAISE|    |lower|NUM |
-			 *                              --------------    ---------------
-			 */
-			  { KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9, KC_F10,KC_F11,  KC_F12 },
-			  {KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_LBRC,    KC_RBRC, KC_BSLASH },
-			  {KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT },
-			  {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_EQUAL } ,
-			  {KC_LCTRL,KC_LGUI, KC_LALT, KC_SPC, KC_SPC,  NUM_H,  KC_DEL,  NUM,   LOWER, KC_BSPC, KC_ENT,  KC_LEFT },
-			  {DEFAULT,RAISE, KC_NONE, KC_NONE, KC_NONE,   KC_NONE,  KC_RIGHT,  KC_DOWN,   KC_NONE, KC_NONE, KC_NONE,   KC_NONE }
+			  { KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0    },
+			  { KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT,KC_ENTER},
+			  { KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15,  KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10  },
+			  { NUM,     KC_LCTRL,KC_LALT, LOWER,   KC_NO,   KC_BSLS, KC_NO,   RAISE,   KC_ENTER,KC_LGUI }
 	};
-
 	 uint16_t _PLUGINS[MATRIX_ROWS][KEYMAP_COLS]={
-
-
 				/* Plugins
 				 * ,-----------------------------------------.    .-----------------------------------------.
 				 * |  ~   |   1  |   2  |   3   |   4  |   5  |   |    6  |   7  |   8  |   9  |   0  |   -  |
@@ -141,12 +123,10 @@ uint16_t default_slave_encoder_map[LAYERS][ENCODER_SIZE] = {
 				 *                            |default |RAISE|    |lower|NUM |
 				 *                              --------------    ---------------
 				 */
-				  {KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC },
-				  {KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC },
-				  {KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT },
-				  {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT } ,
-				  {KC_LCTRL,KC_LGUI, KC_LALT, KC_SPC, KC_SPC,  NUM_H,  KC_DEL,  NUM,   LOWER, KC_BSPC, KC_ENT,  KC_LEFT },
-				  {DEFAULT,RAISE, KC_NONE, KC_NONE, KC_NONE,   KC_NONE,  KC_RIGHT,  KC_DOWN,   KC_NONE, KC_NONE, KC_NONE,   KC_NONE }
+				  {KC_GRV,  KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC },
+				  {KC_ESC,  KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC },
+				  {KC_TAB,  KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT },
+				  {KC_LSFT, KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT  }
 
 		};
  //Create an array that points to the various keymaps

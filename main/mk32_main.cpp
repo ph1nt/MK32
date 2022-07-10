@@ -75,6 +75,7 @@ TaskHandle_t xKeyreportTask;
 //Task for continually updating the OLED
 extern "C" void oled_task(void *pvParameters) {
 #ifdef MASTER
+    ESP_LOGV(KEY_REPORT_TAG, "MMK start");
 	ble_connected_oled();
 	bool CON_LOG_FLAG = false; // Just because I don't want it to keep logging the same thing a billion times
 	while (1) {
@@ -116,7 +117,7 @@ extern "C" void battery_reports(void *pvParameters) {
 		}
 		void* pReport = (void*) &bat_level;
 
-		ESP_LOGI("Battery Monitor","battery level %d", bat_level);
+		ESP_LOGI("Battery Monitor", "battery level %d", bat_level);
 		if(BLE_EN == 1){
 			xQueueSend(battery_q, pReport, (TickType_t) 0);
 		}
@@ -133,9 +134,6 @@ extern "C" void key_reports(void *pvParameters) {
 	// Arrays for holding the report at various stages
 	uint8_t past_report[REPORT_LEN] = { 0 };
 	uint8_t report_state[REPORT_LEN];
-
-
-
 	while (1) {
 		memcpy(report_state, check_key_state(layouts[current_layout]),
 				sizeof report_state);
@@ -236,7 +234,6 @@ extern "C" void slave_scan(void *pvParameters) {
 
 //Update the matrix state via reports recieved by espnow
 extern "C" void espnow_update_matrix(void *pvParameters) {
-
 	uint8_t CURRENT_MATRIX[MATRIX_ROWS][MATRIX_COLS] = { 0 };
 	while (1) {
 		if (xQueueReceive(espnow_receive_q, &CURRENT_MATRIX, 10000)) {
@@ -296,6 +293,7 @@ extern "C" void deep_sleep(void *pvParameters) {
 #endif
 
 extern "C" void app_main() {
+	ESP_LOGI("MMK", "start");
 	//Reset the rtc GPIOS
 	rtc_matrix_deinit();
 
@@ -363,7 +361,7 @@ extern "C" void app_main() {
 	r_encoder_setup();
 	xTaskCreatePinnedToCore(encoder_report, "encoder report", 4096, NULL,
 			configMAX_PRIORITIES, NULL, 1);
-	ESP_LOGI("Encoder", "initializezd");
+	ESP_LOGI("Encoder", "initialized");
 #endif
 
 	// Start the keyboard Tasks
@@ -372,27 +370,27 @@ extern "C" void app_main() {
 	BLE_EN = 1;
 	xTaskCreatePinnedToCore(key_reports, "key report task", 8192,
 			xKeyreportTask, configMAX_PRIORITIES, NULL, 1);
-	ESP_LOGI("Keyboard task", "initializezd");
+	ESP_LOGI("Keyboard task", "initialized");
 #endif
 	//activate oled
 #ifdef	OLED_ENABLE
 	init_oled(ROTATION);
 	xTaskCreatePinnedToCore(oled_task, "oled task", 4096, NULL,
 			configMAX_PRIORITIES, &xOledTask, 1);
-	ESP_LOGI("Oled", "initializezd");
+	ESP_LOGI("Oled", "initialized");
 #endif
 
 #ifdef BATT_STAT
 	init_batt_monitor();
 		xTaskCreatePinnedToCore(battery_reports, "battery reporst", 4096, NULL,
 			configMAX_PRIORITIES, NULL, 1);
-	ESP_LOGI("Battery monitor", "initializezd");
+	ESP_LOGI("Battery monitor", "initialized");
 #endif
 
 #ifdef SLEEP_MINS
 	xTaskCreatePinnedToCore(deep_sleep, "deep sleep task", 4096, NULL,
 			configMAX_PRIORITIES, NULL, 1);
-	ESP_LOGI("Sleep", "initializezd");
+	ESP_LOGI("Sleep", "initialized");
 #endif
 
 //This is for testing
