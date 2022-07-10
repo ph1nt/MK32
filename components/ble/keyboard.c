@@ -2185,9 +2185,8 @@ uint16_t parseIdentifierToKeycode(char* keyidentifier) {
 uint16_t parseKeycodeToIdentifier(uint16_t keycode, char* buffer,
 		uint8_t buf_len) {
 	switch (keycode) {
-	case KEY_A:
-		SAVE("KEY_A")
-;		case KEY_B: SAVE("KEY_B");
+	    case KEY_A:	SAVE("KEY_A");
+        case KEY_B: SAVE("KEY_B");
 		case KEY_C: SAVE("KEY_C");
 		case KEY_D: SAVE("KEY_D");
 		case KEY_E: SAVE("KEY_E");

@@ -95,9 +95,7 @@ uint16_t _PLUGINS[MATRIX_ROWS][KEYMAP_COLS]={
         {XXXXXXX, XXXXXXX, XXXXXXX, DEFAULT, RAISE,   XXXXXXX,  NUM,    LOWER,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX}
 };
 //Create an array that points to the various keymaps
-uint16_t (*default_layouts[])[MATRIX_ROWS][KEYMAP_COLS] = { &_QWERTY, &_NUM,
-                                                            &_PLUGINS
-};
+uint16_t (*default_layouts[])[MATRIX_ROWS][KEYMAP_COLS] = { &_QWERTY, &_NUM, &_PLUGINS};
 
 uint8_t current_layout = 0;
 
