@@ -94,14 +94,11 @@ uint16_t default_slave_encoder_map[LAYERS][ENCODER_SIZE] = {
 // Fillers to make layering more clear
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
-<<<<<<< HEAD
 // TODO mod tap keys
 #define LSFT(key) (key)
 #define MT(key1, key2) (key2)
 #define LT(key1, key2) (key2)
 
-=======
->>>>>>> ca67ff2026f5b767661d1193fd7b898727e93aa4
 #define KC_V_UP KC_AUDIO_VOL_UP
 #define KC_V_DN KC_AUDIO_VOL_DOWN
 #define KC_SLEP KC_SYSTEM_SLEEP
@@ -124,99 +121,32 @@ uint16_t default_slave_encoder_map[LAYERS][ENCODER_SIZE] = {
 #define ENT_SFT MT(MOD_LSFT, KC_ENTER)
 #define ESC_CMD MT(MOD_LGUI, KC_ESC)
 
-<<<<<<< HEAD
-//NOTE: For this keymap due to wiring constraints the the two last rows on the left are wired unconventionally
-// Each keymap is represented by an array, with an array that points to all the keymaps  by order
-	 uint16_t _QWERTY[MATRIX_ROWS][KEYMAP_COLS]={
-			  {KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P     },
-			  {KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN  },
-			  {KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH  },
-			  {NUM,     KC_LCTRL,KC_LALT, LOWER,   KC_NO,   KC_SPACE,KC_NO,   RAISE,   KC_ENTER,KC_LGUI  }
-	};
-	 uint16_t _NUM[MATRIX_ROWS][KEYMAP_COLS]={
-			  { KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0    },
-			  { KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT,KC_ENTER},
-			  { KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15,  KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10  },
-			  { NUM,     KC_LCTRL,KC_LALT, LOWER,   KC_NO,   KC_BSLS, KC_NO,   RAISE,   KC_ENTER,KC_LGUI }
-	};
-	 uint16_t _PLUGINS[MATRIX_ROWS][KEYMAP_COLS]={
-				/* Plugins
-				 * ,-----------------------------------------.    .-----------------------------------------.
-				 * |  ~   |   1  |   2  |   3   |   4  |   5  |   |    6  |   7  |   8  |   9  |   0  |   -  |
-				 * |------+------+------+-------+------+------|   |-------+------+------+------+------+------|
-				 * | Esc  |   Q  |   W  |   E   |   R  |   T  |   |    Y  |   U  |   I  |   O  |   P  |  =   |
-				 * |------+------+------+-------+------+------|   |-------+------+------+------+------+------|
-				 * | Tab  |   A  |   S  |   D   |   F  |   G  |   |    H  |   J  |   K  |   L  |   ;  |  '   |
-				 * |------+------+------+-------+------+------|   |-------+------+------+------+------+------|
-				 * | Shift|   Z  |   X  |   C   |   V  |   B  |   |    N  |   M  |   ,  |   .  |   /  |  up  |
-				 * |------+------+------+-------+------+------|   |-------+------+------+------+------+------|
-				 * | Ctrl | GUI  |  Alt | Space |Space |NUM_H |   |  Del  |Bspc  |Enter | Left | Right  |Down  |
-				 * `------------------------------------------'    ------------------------------------------'
-				 *                            |default |RAISE|    |lower|NUM |
-				 *                              --------------    ---------------
-				 */
-				  {KC_GRV,  KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC },
-				  {KC_ESC,  KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC },
-				  {KC_TAB,  KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT },
-				  {KC_LSFT, KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT  }
+// NOTE: For this keymap due to wiring constraints the the two last rows on the left are wired unconventionally
+//  Each keymap is represented by an array, with an array that points to all the keymaps  by order
+// clang-format off
+    uint16_t _QWERTY[MATRIX_ROWS][KEYMAP_COLS]={
+        {KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P     },
+        {KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN  },
+        {KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH  },
+        {NUM,     KC_LCTRL,KC_LALT, LOWER,   KC_NO,   KC_SPACE,KC_NO,   RAISE,   KC_ENTER,KC_LGUI  }
+    };
+    uint16_t _NUM[MATRIX_ROWS][KEYMAP_COLS]={
+        { KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0    },
+        { KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT,KC_ENTER},
+        { KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15,  KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10  },
+        { NUM,     KC_LCTRL,KC_LALT, LOWER,   KC_NO,   KC_BSLS, KC_NO,   RAISE,   KC_ENTER,KC_LGUI }
+    };
+    uint16_t _PLUGINS[MATRIX_ROWS][KEYMAP_COLS]={
+        {KC_GRV,  KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC },
+        {KC_ESC,  KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC },
+        {KC_TAB,  KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT },
+        {NUM,     KC_LCTRL,KC_LALT, LOWER,   KC_NO,   KC_BSLS, KC_NO,   RAISE,   KC_ENTER,KC_LGUI }
 
-		};
- //Create an array that points to the various keymaps
-uint16_t (*default_layouts[])[MATRIX_ROWS][KEYMAP_COLS] = { &_QWERTY, &_NUM,
-			&_PLUGINS
-		};
-=======
-// NOTE: For this keymap due to wiring constraints the the two last rows on
-// the left are wired unconventionally
-//  Each keymap is represented by an array, with an array that points to all
-//  the keymaps  by order
-uint16_t _QWERTY[MATRIX_ROWS][KEYMAP_COLS] = {
-    /* Qwerty
-     * ,-----------------------------------.
-     * .-----------------------------------------. |   1  |   2  |   3
-     * |   4  |   5  |   |    6  |   7  |   8  |   9  |   0  |   -  |
-     * |------+------+-------+------+------|
-     * |-------+------+------+------+------+------| |   Q  |   W  |   E
-     * |   R  |   T  |   |    Y  |   U  |   I  |   O  |   P  |  =   |
-     * |------+------+-------+------+------|
-     * |-------+------+------+------+------+------| |   A  |   S  |   D
-     * |   F  |   G  |   |    H  |   J  |   K  |   L  |   ;  |  '   |
-     * |------+------+-------+------+------|
-     * |-------+------+------+------+------+------| |   Z  |   X  |   C
-     * |   V  |   B  |   |    N  |   M  |   ,  |   .  |   /  |  up  |
-     * `------+------+-------+------+------|
-     * |-------+------+------+------+------+------' |  Esc  |LOWER
-     * |Enter |   |     SPACE    |RAISE |
-     *               `-----------------------------------------------'
-     */
-    {KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P},
-    {KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN},
-    {KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH},
-    {KC_NONE, KC_NONE, ESC_CMD, LOW_TAB, ENT_SFT, KC_SPACE, RSE_BSP, KC_NONE,
-     KC_NONE, KC_NONE}};
-
-uint16_t _RAISE[MATRIX_ROWS][KEYMAP_COLS] = {
-    {KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0},
-    {KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_LBRC, KC_RBRC, KC_PLUS, KC_MINUS,
-     KC_EQUAL},
-    {KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_F13, KC_UNDS,
-     KC_PIPE},
-    {KC_NONE, KC_NONE, KC_COMM, KC_DOT, KC_ENTER, _______, _______, KC_NONE,
-     KC_NONE, KC_NONE}};
-
-uint16_t _LOWER[MATRIX_ROWS][KEYMAP_COLS] = {
-    {KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR,
-     KC_LPRN, KC_RPRN},
-    {KC_F15, KC_V_UP, KC_EJCT, KC_SLEP, KC_BSLS, KC_LEFT, KC_DOWN, KC_UP,
-     KC_RGHT, KC_GRAVE},
-    {KC_F14, KC_V_DN, KC_MPRV, KC_MPLY, KC_MNXT, KC_N, KC_M, KC_COMM, KC_DOT,
-     KC_SLSH},
-    {KC_NONE, KC_NONE, KC_TILD, _______, KC_ENTER, _______, KC_DEL, KC_NONE,
-     KC_NONE, KC_NONE}};
+    };
+// clang-format on
 // Create an array that points to the various keymaps
-uint16_t (*default_layouts[])[MATRIX_ROWS][KEYMAP_COLS] = {&_QWERTY, &_RAISE,
-                                                           &_LOWER};
->>>>>>> ca67ff2026f5b767661d1193fd7b898727e93aa4
+uint16_t (*default_layouts[])[MATRIX_ROWS][KEYMAP_COLS] = {&_QWERTY, &_NUM,
+                                                           &_PLUGINS};
 
 uint8_t current_layout = 0;
 

@@ -20,29 +20,16 @@
 #define GATTS_TAG "MK32 V3.0"  // The device's name
 #define MAX_BT_DEVICENAME_LENGTH 40
 
-<<<<<<< HEAD
 #define MASTER  // undefine if you are not flashing the main controller
 //#define SPLIT_MASTER	 // undefine if keyboard is not split and master
 //#define SLAVE	 // undefine if keyboard is master
 #define BATT_STAT
-#define DEBOUNCE 4 //debounce time in ms
+#define DEBOUNCE 4  // debounce time in ms
 
-//Define matrix
-#define KEYPADS 1 // intended in order to create a Multiple keypad split boards
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 10 // For split keyboards, define columns for one side only.
-=======
-#define MASTER        // undefine if you are not flashing the main controller
-#define SPLIT_MASTER  // undefine if keyboard is not split and master
-//#define SLAVE	 // undefine if keyboard is master
-
-#define DEBOUNCE 4  //debounce time in ms
-
-//Define matrix
+// Define matrix
 #define KEYPADS 1  // intended in order to create a Multiple keypad split boards
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 10  // For split keyboards, define columns for one side only.
->>>>>>> ca67ff2026f5b767661d1193fd7b898727e93aa4
 
 #define NKRO      // does not work on Android and iOS!,  we can get 18KRO on those
 #define LAYERS 3  // number of layers defined
@@ -51,26 +38,16 @@
 //#define COL2ROW
 #define ROW2COL
 
-//Encoder definitions
-<<<<<<< HEAD
-#define R_ENCODER // undefine if no rotary encoder is used
+// Encoder definitions
+#define R_ENCODER  // undefine if no rotary encoder is used
 //#define R_ENCODER_SLAVE // undefine if no rotary encoder is used on slave pad
-#define ENCODER_A_PIN GPIO_NUM_16 // encoder phase A pin
-#define ENCODER_B_PIN GPIO_NUM_17// encoder phase B pin
+#define ENCODER_A_PIN GPIO_NUM_16  // encoder phase A pin
+#define ENCODER_B_PIN GPIO_NUM_17  // encoder phase B pin
 //#define ENCODER_S_PIN GPIO_NUM_// encoder switch pin
 
-//OLED Parameters
+// OLED Parameters
 //#define OLED_ENABLE //undefine if oled is used
-#define OLED_32x64
-=======
-#define R_ENCODER                  // undefine if no rotary encoder is used
-#define ENCODER_A_PIN GPIO_NUM_17  // encoder phase A pin
-#define ENCODER_B_PIN GPIO_NUM_16  // encoder phase B pin
-#define ENCODER_S_PIN GPIO_NUM_34  // encoder switch pin
-
-//OLED Parameters
-#define OLED_ENABLE  //undefine if no oled is used
->>>>>>> ca67ff2026f5b767661d1193fd7b898727e93aa4
+#define OLED_128x32
 #define ROTATION DEG270
 #define OLED_SDA_PIN GPIO_NUM_32
 #define OLED_SCL_PIN GPIO_NUM_33
@@ -78,10 +55,10 @@
 /*Battery monitoring
  * Please read check battery_monitor.h for resistor values before applying
  * use ADC1 only,  */
-#define BATT_STAT                //define to enable battery monitoring
-#define BATT_PIN ADC1_CHANNEL_7  //gpio pin 35, refer to the esp32 before modifying
+#define BATT_STAT                // define to enable battery monitoring
+#define BATT_PIN ADC1_CHANNEL_7  // gpio pin 35, refer to the esp32 before modifying
 
-//deep sleep parameters, mind that reconnecting after deep sleep might take a minute or two
+// deep sleep parameters, mind that reconnecting after deep sleep might take a minute or two
 //#define SLEEP_MINS 45 // undefine if you do not need deep sleep, otherwise define number of minutes for deepsleep
 
 /*
@@ -89,13 +66,13 @@
  *
  * */
 #define CHECK_BIT(var, pos) ((var) & (1 << (pos)))
-#define SET_BIT(var, pos) (var |= 1LLU << pos);
+#define SET_BIT(var, pos) (var |= 1 << pos);
 
 #define MAX_LAYER (LAYERS - 1)
-#define MOD_LED_BYTES 2                                                     //bytes for led status and modifiers
-#define MACRO_LEN 3                                                         //keys for macros
+#define MOD_LED_BYTES 2                                                     // bytes for led status and modifiers
+#define MACRO_LEN 3                                                         // keys for macros
 #define KEYMAP_COLS MATRIX_COLS* KEYPADS                                    // used for a symmetrical split keyboard
-#define REPORT_LEN (MOD_LED_BYTES + MACRO_LEN + MATRIX_ROWS * KEYMAP_COLS)  //size of hid reports with NKRO and room for 3 key macro
+#define REPORT_LEN (MOD_LED_BYTES + MACRO_LEN + MATRIX_ROWS * KEYMAP_COLS)  // size of hid reports with NKRO and room for 3 key macro
 #define REPORT_COUNT_BYTES (MATRIX_ROWS * KEYMAP_COLS + MACRO_LEN)
 
 #define PLUGIN_BASE_VAL 0x135
