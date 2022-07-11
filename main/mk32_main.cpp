@@ -38,7 +38,8 @@
 #include "freertos/event_groups.h"
 #include "freertos/task.h"
 #include "nvs_flash.h"
-
+// OLED
+#include "ssd1306.h"
 // HID Ble functions
 //#include "HID_kbdmousejoystick.h"
 #include "hal_ble.h"
@@ -285,12 +286,15 @@ extern "C" void app_main() {
                             xKeyreportTask, configMAX_PRIORITIES, NULL, 1);
     ESP_LOGI("Keyboard task", "initialized");
     // activate oled
-#ifdef OLED_ENABLE
-    init_oled(ROTATION);
-    xTaskCreatePinnedToCore(oled_task, "oled task", 4096, NULL,
-                            configMAX_PRIORITIES, &xOledTask, 1);
+    SSD1306_t dev;
+    i2c_master_init(&dev, 32, 33, -1);
+    ssd1306_init(&dev, 128, 32);
+    ssd1306_contrast(&dev, 0x0f);
+    ssd1306_clear_screen(&dev, false);
+    ssd1306_display_text(&dev, 0, "SSD1306 128x32", 14, false);
+    ssd1306_display_text_x3(&dev, 0, "Hello", 5, false);
+    ssd1306_display_text(&dev, 3, "ABCDEFGHIJKLMNOP", 16, true);
     ESP_LOGI("Oled", "initialized");
-#endif
     // Start the battery Tasks
     init_batt_monitor();
     xTaskCreatePinnedToCore(battery_reports, "battery reporst", 4096, NULL,
