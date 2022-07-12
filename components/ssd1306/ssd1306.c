@@ -579,3 +579,14 @@ void ssd1306_dump(SSD1306_t dev) {
 void ssd1306_dump_page(SSD1306_t *dev, int page, int seg) {
     ESP_LOGI(TAG, "dev->_page[%d]._segs[%d]=%02x", page, seg, dev->_page[page]._segs[seg]);
 }
+
+void oled_setup() {
+    SSD1306_t dev;
+    i2c_master_init(&dev, 32, 33, -1);
+    ssd1306_init(&dev, 128, 32);
+    ssd1306_contrast(&dev, 0x0f);
+    ssd1306_clear_screen(&dev, false);
+    ssd1306_display_text_x3(&dev, 0, "MMK v1", 6, false);
+    ssd1306_display_text(&dev, 3, , "SSD1306 128x32", 14, true);
+    ESP_LOGI("Oled", "initialized");
+}

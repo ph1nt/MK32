@@ -97,29 +97,6 @@ extern "C" void oled_task(void *pvParameters) {
     }
 }
 
-// handle battery reports over BLE
-extern "C" void battery_reports(void *pvParameters) {
-    // uint8_t past_battery_report[1] = { 0 };
-    while (1) {
-        uint32_t bat_level = get_battery_level();
-        // if battery level is above 100, we're charging
-        if (bat_level > 100) {
-            bat_level = 100;
-            // if charging, do not enter deepsleep
-            DEEP_SLEEP = false;
-        }
-        void *pReport = (void *)&bat_level;
-        ESP_LOGI("Battery Monitor", "battery level %d", bat_level);
-        if (BLE_EN == 1) {
-            xQueueSend(battery_q, pReport, (TickType_t)0);
-        }
-        if (input_str_q != NULL) {
-            xQueueSend(input_str_q, pReport, (TickType_t)0);
-        }
-        vTaskDelay(60 * 1000 / portTICK_PERIOD_MS);
-    }
-}
-
 // How to handle key reports
 extern "C" void key_reports(void *pvParameters) {
     // Arrays for holding the report at various stages
@@ -276,9 +253,6 @@ extern "C" void app_main() {
     ESP_LOGI("HIDD", "MAIN finished...");
     // activate encoder functions
     r_encoder_setup();
-    xTaskCreatePinnedToCore(encoder_report, "encoder report", 4096, NULL,
-                            configMAX_PRIORITIES, NULL, 1);
-    ESP_LOGI("Encoder", "initialized");
     // Start the keyboard Tasks
     // Create the key scanning task on core 1 (otherwise it will crash)
     BLE_EN = 1;
@@ -286,20 +260,9 @@ extern "C" void app_main() {
                             xKeyreportTask, configMAX_PRIORITIES, NULL, 1);
     ESP_LOGI("Keyboard task", "initialized");
     // activate oled
-    SSD1306_t dev;
-    i2c_master_init(&dev, 32, 33, -1);
-    ssd1306_init(&dev, 128, 32);
-    ssd1306_contrast(&dev, 0x0f);
-    ssd1306_clear_screen(&dev, false);
-    ssd1306_display_text(&dev, 0, "SSD1306 128x32", 14, false);
-    ssd1306_display_text_x3(&dev, 0, "Hello", 5, false);
-    ssd1306_display_text(&dev, 3, "ABCDEFGHIJKLMNOP", 16, true);
-    ESP_LOGI("Oled", "initialized");
+    oled_setup();
     // Start the battery Tasks
     init_batt_monitor();
-    xTaskCreatePinnedToCore(battery_reports, "battery reporst", 4096, NULL,
-                            configMAX_PRIORITIES, NULL, 1);
-    ESP_LOGI("Battery monitor", "initialized");
 
 #ifdef SLEEP_MINS
     xTaskCreatePinnedToCore(deep_sleep, "deep sleep task", 4096, NULL,
