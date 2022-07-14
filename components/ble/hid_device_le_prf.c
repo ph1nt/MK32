@@ -282,7 +282,7 @@ static const uint16_t bat_lev_uuid = ESP_GATT_UUID_BATTERY_LEVEL;
 static const uint8_t bat_lev_ccc[2] = { 0x00, 0x00 };
 static const uint16_t char_format_uuid = ESP_GATT_UUID_CHAR_PRESENT_FORMAT;
 
-static uint8_t battary_lev = 50;
+static uint8_t battery_lev = 50;
 /// Full HRS Database Description - Used to add attributes into the database
 static const esp_gatts_attr_db_t bas_att_db[BAS_IDX_NB] = {
 // Battary Service Declaration
@@ -300,7 +300,7 @@ static const esp_gatts_attr_db_t bas_att_db[BAS_IDX_NB] = {
 		// Battary level Characteristic Value
 		[BAS_IDX_BATT_LVL_VAL] = { { ESP_GATT_AUTO_RSP }, { ESP_UUID_LEN_16,
 				(uint8_t *) &bat_lev_uuid, ESP_GATT_PERM_READ, sizeof(uint8_t),
-				sizeof(uint8_t), &battary_lev } },
+				sizeof(uint8_t), &battery_lev } },
 
 		// Battary level Characteristic - Client Characteristic Configuration Descriptor
 		[BAS_IDX_BATT_LVL_NTF_CFG] = { { ESP_GATT_AUTO_RSP }, { ESP_UUID_LEN_16,
@@ -576,14 +576,13 @@ void esp_hidd_prf_cb_hdl(esp_gatts_cb_event_t event, esp_gatt_if_t gatts_if,
 
 		}
 #ifdef BATT_STAT
-		battary_lev = get_battery_level();
+		battery_lev = get_battery_level();
 		ESP_LOGI(HID_LE_PRF_TAG, "set battery value on conn %d, hanlde %d, value %d, length %d\n", 
-		 		param->connect.conn_id, battery_table[BAS_IDX_BATT_LVL_VAL], battary_lev, sizeof(battary_lev));
-		esp_ble_gatts_set_attr_value(battery_table[BAS_IDX_BATT_LVL_VAL], sizeof(uint8_t), &battary_lev);
+		 		param->connect.conn_id, battery_table[BAS_IDX_BATT_LVL_VAL], battery_lev, sizeof(battery_lev));
+		esp_ble_gatts_set_attr_value(battery_table[BAS_IDX_BATT_LVL_VAL], sizeof(uint8_t), &battery_lev);
 		esp_ble_gatts_send_indicate(gatts_if, param->connect.conn_id, battery_table[BAS_IDX_BATT_LVL_VAL], 
-				sizeof(uint8_t), &battary_lev, false);
+				sizeof(uint8_t), &battery_lev, false);
 #endif
-
 		break;
 	}
 

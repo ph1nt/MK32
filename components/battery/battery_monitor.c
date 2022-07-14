@@ -62,27 +62,6 @@ uint32_t get_battery_level(void) {
     return battery_percent;
 }
 
-// handle battery reports over BLE
-extern "C" void battery_reports(void *pvParameters) {
-    // uint8_t past_battery_report[1] = { 0 };
-    while (1) {
-        uint32_t bat_level = get_battery_level();
-        // if battery level is  100, we're charging
-        if (bat_level = 100) {
-            // if charging, do not enter deepsleep
-            DEEP_SLEEP = false;
-        }
-        void *pReport = (void *)&bat_level;
-        ESP_LOGI("Battery Monitor", "battery level %d", bat_level);
-        if (BLE_EN == 1) {
-            xQueueSend(battery_q, pReport, (TickType_t)0);
-        }
-        if (input_str_q != NULL) {
-            xQueueSend(input_str_q, pReport, (TickType_t)0);
-        }
-        vTaskDelay(60 * 1000 / portTICK_PERIOD_MS);
-    }
-}
 // -K5px:VJFs5QUDY
 // initialize battery monitor pin
 void init_batt_monitor(void) {
@@ -91,7 +70,4 @@ void init_batt_monitor(void) {
     adc_chars = calloc(1, sizeof(esp_adc_cal_characteristics_t));
     esp_adc_cal_characterize(unit, atten, ADC_WIDTH_BIT_12, DEFAULT_VREF,
                              adc_chars);
-    xTaskCreatePinnedToCore(battery_reports, "battery report", 4096, NULL,
-                            configMAX_PRIORITIES, NULL, 1);
-    ESP_LOGI("Battery monitor", "initialized");
 }

@@ -587,6 +587,6 @@ void oled_setup() {
     ssd1306_contrast(&dev, 0x0f);
     ssd1306_clear_screen(&dev, false);
     ssd1306_display_text_x3(&dev, 0, "MMK v1", 6, false);
-    ssd1306_display_text(&dev, 3, , "SSD1306 128x32", 14, true);
+    ssd1306_display_text(&dev, 3, "SSD1306 128x32", 14, true);
     ESP_LOGI("Oled", "initialized");
 }

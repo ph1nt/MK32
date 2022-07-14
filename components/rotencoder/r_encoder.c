@@ -152,9 +152,6 @@ void r_encoder_setup(void) {
     gpio_set_direction(ENCODER_S_PIN, GPIO_MODE_INPUT);
     gpio_set_pull_mode(ENCODER_S_PIN, GPIO_PULLDOWN_ONLY);
 #endif
-    xTaskCreatePinnedToCore(encoder_report, "encoder report", 4096, NULL,
-                            configMAX_PRIORITIES, NULL, 1);
-    ESP_LOGI("Encoder", "initialized");
 }
 // Check encoder state, currently defined for Vol +/= and mute
 uint8_t r_encoder_state(void) {
