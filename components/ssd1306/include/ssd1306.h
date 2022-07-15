@@ -2,6 +2,7 @@
 #define MAIN_SSD1306_H_
 
 #include "driver/spi_master.h"
+#include <freertos/queue.h>
 
 // Following definitions are bollowed from
 // http://robotcantalk.blogspot.com/2015/03/interfacing-arduino-with-ssd1306-driven.html
@@ -74,6 +75,22 @@ Usage:
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+/** @brief deinitialize the oled screen
+ * */
+void deinit_oled(void);
+
+/** @brief running oled task
+ * */
+void update_oled(void);
+
+/** @brief Queue for sending layer to oled
+ **/
+extern QueueHandle_t layer_recieve_q;
+
+/** @brief Queue for sending led status to oled
+ **/
+extern QueueHandle_t led_recieve_q;
 
 typedef enum {
     SCROLL_RIGHT = 1,

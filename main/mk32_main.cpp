@@ -90,28 +90,7 @@ extern "C" void battery_reports(void *pvParameters) {
 }
 
 // Task for continually updating the OLED
-extern "C" void oled_task(void *pvParameters) {
-  ESP_LOGV(KEY_REPORT_TAG, "MMK start");
-  ble_connected_oled();
-  bool CON_LOG_FLAG = false;  // Just because I don't want it to keep logging
-                              // the same thing a billion times
-  while (1) {
-    if (halBLEIsConnected() == 0) {
-      if (CON_LOG_FLAG == false) {
-        ESP_LOGI(KEY_REPORT_TAG, "Not connected, waiting for connection ");
-      }
-      waiting_oled();
-      DEEP_SLEEP = false;
-      CON_LOG_FLAG = true;
-    } else {
-      if (CON_LOG_FLAG == true) {
-        ble_connected_oled();
-      }
-      update_oled();
-      CON_LOG_FLAG = false;
-    }
-  }
-}
+extern "C" void oled_task(void *pvParameters) { update_oled(); }
 
 // How to handle key reports
 extern "C" void key_reports(void *pvParameters) {
