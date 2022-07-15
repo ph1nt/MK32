@@ -46,8 +46,6 @@
 
 // MK32 functions
 #include "battery_monitor.h"
-#include "espnow_receive.h"
-#include "espnow_send.h"
 #include "keyboard_config.h"
 #include "keypress_handles.c"
 #include "matrix.h"
@@ -177,15 +175,6 @@ extern "C" void encoder_report(void *pvParameters) {
   }
 }
 
-// Update the matrix state via reports recieved by espnow
-extern "C" void espnow_update_matrix(void *pvParameters) {
-  uint8_t CURRENT_MATRIX[MATRIX_ROWS][MATRIX_COLS] = {0};
-  while (1) {
-    if (xQueueReceive(espnow_receive_q, &CURRENT_MATRIX, 10000)) {
-      DEEP_SLEEP = false;
-    }
-  }
-}
 // what to do after waking from deep sleep, doesn't seem to work after updating
 // esp-idf extern "C" void RTC_IRAM_ATTR esp_wake_deep_sleep(void) {
 //     rtc_matrix_deinit();;
