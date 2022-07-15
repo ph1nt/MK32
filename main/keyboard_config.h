@@ -101,6 +101,7 @@ extern uint16_t default_slave_encoder_map[LAYERS][ENCODER_SIZE];
 extern char default_layout_names[LAYERS][MAX_LAYOUT_NAME_LENGTH];
 
 extern TaskHandle_t xKeyreportTask;
+extern TaskHandle_t xOledTask;
 
 #endif
 //

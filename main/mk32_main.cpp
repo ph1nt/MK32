@@ -62,14 +62,10 @@
 #include "plugins.h"
 
 static config_data_t config;
-QueueHandle_t espnow_recieve_q;
-
 bool DEEP_SLEEP = true;  // flag to check if we need to go to deep sleep
 
-#ifdef OLED_ENABLE
-TaskHandle_t xOledTask;
-#endif
 TaskHandle_t xKeyreportTask;
+TaskHandle_t xOledTask;
 
 // handle battery reports over BLE
 extern "C" void battery_reports(void *pvParameters) {
@@ -89,7 +85,7 @@ extern "C" void battery_reports(void *pvParameters) {
     if (input_str_q != NULL) {
       xQueueSend(input_str_q, pReport, (TickType_t)0);
     }
-    vTaskDelay(60 * 1000 / portTICK_PERIOD_MS);
+    vTaskDelay(6 * 1000 / portTICK_PERIOD_MS);  // 6 seconds
   }
 }
 
@@ -273,6 +269,9 @@ extern "C" void app_main() {
   ESP_LOGI("Keyboard task", "initialized");
   // activate oled
   oled_setup();
+  xTaskCreatePinnedToCore(key_reports, "key report task", 8192, xOledTask,
+                          configMAX_PRIORITIES, NULL, 1);
+  ESP_LOGI("OLED task", "initialized");
   // Start the battery Tasks
   init_batt_monitor();
   xTaskCreatePinnedToCore(battery_reports, "battery report", 4096, NULL,
